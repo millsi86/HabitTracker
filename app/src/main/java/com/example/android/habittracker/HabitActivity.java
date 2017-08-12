@@ -21,6 +21,21 @@ public class HabitActivity extends AppCompatActivity {
         mDbHelper = new HabitDbHelper(this);
     }
 
+    public Cursor queryAllHabits() {
+        // Create and/or ipen a database to read from it
+        SQLiteDatabase db = mDbHelper.getReadableDatabase();
+
+        String[] projection = {
+                HabitEntry._ID,
+                HabitEntry.COLUMN_ACTIVITY_NAME,
+                HabitEntry.COLUMN_ACTIVITY_DURATION,
+                HabitEntry.COLUMN_ACTIVITY_LOCATION,
+        };
+
+        Cursor cursor = db.query(HabitEntry.TABLE_NAME, projection, null, null, null, null, null);
+        return cursor;
+    }
+
     private void displayDatabaseInto() {
         // To access our database, we instantiate our subclass of SQLiteOpenHelper
         // and pass the context, which is the current activity.
